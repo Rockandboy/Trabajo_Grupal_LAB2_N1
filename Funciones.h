@@ -231,10 +231,36 @@ struct Pais obtenerRegistroPais(char *pais)
     }
 }
 // 5) --------------------------------------------------------------
+
 void listarPaises_Superficies()
 {
+    const int tam = contarPaises();
+    float porc,sumaSuperficies;
+    Pais sumar, leer[tam];
+    FILE* archivo;
+    //abro archivo
+    archivo=fopen(ARCHIVO_PAISES,"rb");
+    if (archivo==NULL)
+    {
+        cout << "Error: Archivo no existente" << endl;
+    }
+    fread(leer,sizeof(Pais),tam,archivo);
+    //leo el archivo
+    while(fread(&sumar,sizeof(Pais),1,archivo)==1)
+    {
+        //sumo para obtener la superficie mundial
+        sumaSuperficies =+ sumar._superficie;
 
+    }
+    for (int x=0; x<tam; x++)
+    {
+        porc = (sumaSuperficies/leer[x]._superficie);
+        cout << "La superficie de " << leer[x]._nombre << "\trepresenta el : " << porc << endl;
+        cout << "------------------------------------------------------------------------" << endl;
+    }
+    fclose(archivo);
 }
+
 
 // 9) --------------------------------------------------------------
 
