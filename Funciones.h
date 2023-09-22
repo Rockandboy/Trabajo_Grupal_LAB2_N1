@@ -235,7 +235,7 @@ struct Pais obtenerRegistroPais(char *pais)
 void listarPaises_Superficies()
 {
     const int tam = contarPaises();
-    float porc,sumaSuperficies;
+    float porc=0,sumaSuperficies=0;
     Pais sumar, leer[tam];
     FILE* archivo;
     //abro archivo
@@ -254,11 +254,12 @@ void listarPaises_Superficies()
     }
     for (int x=0; x<tam; x++)
     {
-        porc = (sumaSuperficies/leer[x]._superficie);
+        porc = ((leer[x]._superficie*100)/sumaSuperficies);
         cout << "La superficie de " << leer[x]._nombre << "\trepresenta el : " << porc << endl;
         cout << "------------------------------------------------------------------------" << endl;
     }
     fclose(archivo);
+    system("pause");
 }
 
 

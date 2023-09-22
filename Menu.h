@@ -108,11 +108,11 @@ void menuPaises(){
             break;
         case 2:
             clrscr();
-                        //leerPaises();
+            //leerPaises();
             break;
         case 3:
             clrscr();
-            //listarPaises_Superficies();
+            listarPaises_Superficies();
             break;
         case 4:
             clrscr();
