@@ -1,9 +1,9 @@
 #ifndef FUNCIONES_H_INCLUDED
 #define FUNCIONES_H_INCLUDED
 
-/// Colocar las LibrerÌas que se utilizar·n
-
-#include "Structs.h" /// LibrerÌa con los Structs y constantes de los Archivos
+/// Colocar las Librer√≠as que se utilizar√°n
+//hola
+#include "Structs.h" /// Librer√≠a con los Structs y constantes de los Archivos
 #include "string.h"
 #include <cstdio>
 #include <iostream>
@@ -24,24 +24,24 @@ void leerPaises();          // Leo el Archivo.
 void mostrarPais(Pais reg); // Recibo el Registro leido del archivo y lo muestro. Registro x Registro, sin uso de Vectores.
 
 // 4) --------------------------------------------------------------
-void mostrarCiudadesxPais();                  // Leo el archivo Ciudades. Dentro de la funciÛn se debe pedir al Usuario que ingrese el nombre del Pais.
+void mostrarCiudadesxPais();                  // Leo el archivo Ciudades. Dentro de la funci√≥n se debe pedir al Usuario que ingrese el nombre del Pais.
 struct Pais obtenerRegistroPais(char *pais);  // Recibe el nombre del Pais y busca su registro.
-// Revisar la opciÛn de pedir primero el ingreso para obtener el Registro y luego leer el archivo Ciudades.
+// Revisar la opci√≥n de pedir primero el ingreso para obtener el Registro y luego leer el archivo Ciudades.
 
 // 5) --------------------------------------------------------------
 void listarPaises_Superficies();    // Leer y guardar los Registros en un Vector.
 // Calcular el Total de Superficie Mundial.
-// Mostrar dentro de la funciÛn misma, NOMBRE - SUPERFICIE - PORCENTAJE %
+// Mostrar dentro de la funci√≥n misma, NOMBRE - SUPERFICIE - PORCENTAJE %
 
 // 6) --------------------------------------------------------------
-void totalesxContinente();          // Leo el archivo Paises. Dentro de la funciÛn se debe pedir al Usuario que ingrese el nombre del Pais.
+void totalesxContinente();          // Leo el archivo Paises. Dentro de la funci√≥n se debe pedir al Usuario que ingrese el nombre del Pais.
 // Guardo en un vector los registros.
 // Calculo los totales y promedios. Muestro.
 
 // 7) --------------------------------------------------------------
 void modificarPais();               // Pido el codigo de pais a modificar.
 // Verificar que exista.
-// Buscar registro (usar funciÛn respectiva).
+// Buscar registro (usar funci√≥n respectiva).
 // Ingresar los nuevos valores y reemplazar.
 void grabarModificado(Pais reg);    // Guardar Pais Modificado.
 
@@ -64,7 +64,7 @@ int contarCiudades();   // Contar Registros Archivo Ciudades
 int contarPoblacionMundial();
 
 /// PUNTOS 11 y 12 (OPCIONALES)
-/// COLOCAR AQUÕ LOS PROTOTIPOS DE LAS FUNCIONES
+/// COLOCAR AQU√ç LOS PROTOTIPOS DE LAS FUNCIONES
 
 bool SalirDeFuncion();
 
@@ -117,7 +117,7 @@ void cargarPais()
             cin >> cargar._superficie;
             cout << "Cargar Poblacion del pais" << endl;
             cin >> cargar._poblacion;
-            cout << "Cargar aÒo de independencia " << endl;
+            cout << "Cargar a√±o de independencia " << endl;
             cin >> cargar._independencia;
             cout << "Cargar expectativa de vida del pais " << endl;
             cin >> cargar._expectativaDeVida;
@@ -148,7 +148,7 @@ void grabarPais(Pais reg)
 // 3) --------------------------------------------------------------
 void leerPaises()
 {
-    setlocale(LC_ALL, ""); // mostrar caracteres en espaÒol
+    setlocale(LC_ALL, ""); // mostrar caracteres en espa√±ol
     // abro el archivo en modo lectura
     FILE *archivo;
 
@@ -173,8 +173,8 @@ void mostrarPais(Pais mostrar)
     cout << "   Continente:\t "<<mostrar._continente<<endl;
     cout << "   Superficie:\t "<<mostrar._superficie<< " Km cuadrados"<<endl;
     cout << "   Poblacion:\t "<<mostrar._poblacion<<" habitantes"<<endl;
-    cout << "   AÒo de Independencia:\t "<<mostrar._independencia<<endl;
-    cout << "   Expectativa de vida:\t "<<mostrar._expectativaDeVida<<" aÒos"<<endl;
+    cout << "   A√±o de Independencia:\t "<<mostrar._independencia<<endl;
+    cout << "   Expectativa de vida:\t "<<mostrar._expectativaDeVida<<" a√±os"<<endl;
     cout << "   Capital:\t "<<mostrar._capital<<endl;
     cout <<endl;
 }
@@ -291,10 +291,10 @@ int contarPoblacionMundial()
 /// ADICIONALES IMPORTANTES
 void totalesPais_Poblacion()
 {
-    //setlocale(LC_ALL, ""); // mostrar caracteres en espaÒol
+    //setlocale(LC_ALL, ""); // mostrar caracteres en espa√±ol
 
     cout<<""<<endl;
-    cout<<" El total de piÌses es: "<<contarPaises()<<endl;
+    cout<<" El total de pi√≠ses es: "<<contarPaises()<<endl;
     cout<<""<<endl;
     cout<<" El total de la poblacion mundial es: "<<contarPoblacionMundial()<<endl;
     cout<<""<<endl;
