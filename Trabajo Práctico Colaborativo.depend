@@ -1,0 +1,105 @@
+# depslib dependency file v1.0
+1694185005 source:c:\users\rodri\onedrive\desktop\programa puentes\laboratorio de computación 2\trabajos practicos colaborativos\trabajo práctico colaborativo\main.cpp
+	"Menu.h"
+
+1694185538 c:\users\rodri\onedrive\desktop\programa puentes\laboratorio de computación 2\trabajos practicos colaborativos\trabajo práctico colaborativo\menu.h
+	<windows.h>
+	<iostream>
+	"graficos.h"
+	"Funciones.h"
+
+1693600563 c:\users\rodri\onedrive\desktop\programa puentes\laboratorio de computación 2\trabajos practicos colaborativos\trabajo práctico colaborativo\fecha.h
+	<iostream>
+	<cstdlib>
+	<cstdio>
+	<ctime>
+	<cstring>
+	<windows.h>
+
+1694185589 c:\users\rodri\onedrive\desktop\programa puentes\laboratorio de computación 2\trabajos practicos colaborativos\trabajo práctico colaborativo\graficos.h
+	<iostream>
+
+1694183435 c:\users\rodri\onedrive\desktop\programa puentes\laboratorio de computación 2\trabajos practicos colaborativos\trabajo práctico colaborativo\funciones.h
+	"Structs.h"
+
+1694185153 c:\users\rodri\onedrive\desktop\programa puentes\laboratorio de computación 2\trabajos practicos colaborativos\trabajo práctico colaborativo\structs.h
+
+1694973805 source:d:\documentos\c++ practica\2do cuatri\lab. de comp ii\trabajo práctico colaborativo\trabajo práctico colaborativo\main.cpp
+	"Menu.h"
+
+1694185538 d:\documentos\c++ practica\2do cuatri\lab. de comp ii\trabajo práctico colaborativo\trabajo práctico colaborativo\menu.h
+	<windows.h>
+	<iostream>
+	"graficos.h"
+	"Funciones.h"
+
+1694185589 d:\documentos\c++ practica\2do cuatri\lab. de comp ii\trabajo práctico colaborativo\trabajo práctico colaborativo\graficos.h
+	<iostream>
+
+1694973887 d:\documentos\c++ practica\2do cuatri\lab. de comp ii\trabajo práctico colaborativo\trabajo práctico colaborativo\funciones.h
+	"Structs.h"
+
+1694185153 d:\documentos\c++ practica\2do cuatri\lab. de comp ii\trabajo práctico colaborativo\trabajo práctico colaborativo\structs.h
+
+1695068607 source:f:\mi unidad\utn programación - fabian luna\2do cuatrimestre 2023\laboratorio de computaciòn ii - 2c 2023\tp1\trabajo práctico colaborativo\main.cpp
+	"Menu.h"
+
+1695069743 f:\mi unidad\utn programación - fabian luna\2do cuatrimestre 2023\laboratorio de computaciòn ii - 2c 2023\tp1\trabajo práctico colaborativo\menu.h
+	<windows.h>
+	<iostream>
+	"graficos.h"
+	"Funciones.h"
+
+1694185589 f:\mi unidad\utn programación - fabian luna\2do cuatrimestre 2023\laboratorio de computaciòn ii - 2c 2023\tp1\trabajo práctico colaborativo\graficos.h
+	<iostream>
+
+1695069775 f:\mi unidad\utn programación - fabian luna\2do cuatrimestre 2023\laboratorio de computaciòn ii - 2c 2023\tp1\trabajo práctico colaborativo\funciones.h
+	"Structs.h"
+	"string.h"
+	<cstdio>
+	<iostream>
+	<locale.h>
+
+1695066338 f:\mi unidad\utn programación - fabian luna\2do cuatrimestre 2023\laboratorio de computaciòn ii - 2c 2023\tp1\trabajo práctico colaborativo\structs.h
+
+1694995870 source:c:\users\fabu\desktop\trabajo práctico colaborativo\main.cpp
+	"Menu.h"
+
+1694959450 c:\users\fabu\desktop\trabajo práctico colaborativo\menu.h
+	<windows.h>
+	<iostream>
+	"graficos.h"
+	"Funciones.h"
+
+1694185589 c:\users\fabu\desktop\trabajo práctico colaborativo\graficos.h
+	<iostream>
+
+1694995834 c:\users\fabu\desktop\trabajo práctico colaborativo\funciones.h
+	"Structs.h"
+	"string.h"
+	<cstdio>
+	<iostream>
+
+1694996022 c:\users\fabu\desktop\trabajo práctico colaborativo\structs.h
+
+1695072915 source:d:\documentos\trabajo práctico colaborativo final\main.cpp
+	"Menu.h"
+
+1695072917 d:\documentos\trabajo práctico colaborativo final\menu.h
+	<windows.h>
+	<iostream>
+	"graficos.h"
+	"Funciones.h"
+
+1694185589 d:\documentos\trabajo práctico colaborativo final\graficos.h
+	<iostream>
+
+1695343386 d:\documentos\trabajo práctico colaborativo final\funciones.h
+	"Structs.h"
+	"string.h"
+	<cstdio>
+	<iostream>
+	<locale.h>
+
+1695072914 d:\documentos\trabajo práctico colaborativo final\structs.h
+
