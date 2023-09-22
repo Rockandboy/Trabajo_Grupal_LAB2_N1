@@ -4,7 +4,6 @@ struct Pais{
     char _nombre[45];
     char _continente[20];
     float _superficie;
-    //int _poblacion;
     int _poblacion;
     short _independencia;
     float _expectativaDeVida;
