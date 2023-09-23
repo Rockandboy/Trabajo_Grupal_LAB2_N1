@@ -34,7 +34,7 @@ void listarPaises_Superficies();    // Leer y guardar los Registros en un Vector
 // Mostrar dentro de la función misma, NOMBRE - SUPERFICIE - PORCENTAJE %
 
 // 6) --------------------------------------------------------------
-void totalesxContinente();          // Leo el archivo Paises. Dentro de la función se debe pedir al Usuario que ingrese el nombre del Pais.
+void totalesxContinente(); // Leo el archivo Paises. Dentro de la función se debe pedir al Usuario que ingrese el nombre del Pais.
 // Guardo en un vector los registros.
 // Calculo los totales y promedios. Muestro.
 
@@ -148,7 +148,7 @@ void grabarPais(Pais reg)
 // 3) --------------------------------------------------------------
 void leerPaises()
 {
-    // abro el archivo en modo lectura
+    //setlocale(LC_ALL, ""); // mostrar caracteres en español
     FILE *archivo;
 
     Pais leer;// variable tipo struct Pais donde guardo el contenido a mostrar
@@ -167,7 +167,6 @@ void leerPaises()
 
 void mostrarPais(Pais mostrar)
 {
-    cout << "   Capital:\t "<<mostrar._capital<<endl;
     cout << "   Codigo de Pais:\t"<<mostrar._codigo<<endl;
     cout << "   Codigo 2:\t        "<<mostrar._codigo2<<endl;
     cout << "   Nombre:\t        "<<mostrar._nombre<<endl;
