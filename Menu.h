@@ -108,7 +108,7 @@ void menuPaises(){
             break;
         case 2:
             clrscr();
-            //leerPaises();
+            leerPaises();
             break;
         case 3:
             clrscr();

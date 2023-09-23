@@ -148,7 +148,6 @@ void grabarPais(Pais reg)
 // 3) --------------------------------------------------------------
 void leerPaises()
 {
-    setlocale(LC_ALL, ""); // mostrar caracteres en español
     // abro el archivo en modo lectura
     FILE *archivo;
 
@@ -159,23 +158,25 @@ void leerPaises()
     while(fread(&leer, sizeof(Pais),1,archivo)==1)
     {
         mostrarPais(leer);
-        system ("pause");
+
     }
+    system ("pause");
     // cierro archivo
     fclose(archivo);
 }
 
 void mostrarPais(Pais mostrar)
 {
-    cout << "   Codigo de Pais:\t "<<mostrar._codigo<<endl;
-    cout << "   Codigo 2:\t "<<mostrar._codigo2<<endl;
-    cout << "   Nombre:\t "<<mostrar._nombre<<endl;
-    cout << "   Continente:\t "<<mostrar._continente<<endl;
-    cout << "   Superficie:\t "<<mostrar._superficie<< " Km cuadrados"<<endl;
-    cout << "   Poblacion:\t "<<mostrar._poblacion<<" habitantes"<<endl;
-    cout << "   Año de Independencia:\t "<<mostrar._independencia<<endl;
-    cout << "   Expectativa de vida:\t "<<mostrar._expectativaDeVida<<" años"<<endl;
     cout << "   Capital:\t "<<mostrar._capital<<endl;
+    cout << "   Codigo de Pais:\t"<<mostrar._codigo<<endl;
+    cout << "   Codigo 2:\t        "<<mostrar._codigo2<<endl;
+    cout << "   Nombre:\t        "<<mostrar._nombre<<endl;
+    cout << "   Continente:\t        "<<mostrar._continente<<endl;
+    cout << "   Superficie:\t        "<<mostrar._superficie<< " Km cuadrados"<<endl;
+    cout << "   Poblacion:\t        "<<mostrar._poblacion<<" habitantes"<<endl;
+    cout << "   Independencia:\t"<<mostrar._independencia<<endl;
+    cout << "   Expectativa de vida:\t"<<mostrar._expectativaDeVida<<endl;
+    cout << "   Capital:\t        "<<mostrar._capital<<endl;
     cout <<endl;
 }
 
@@ -183,41 +184,57 @@ void mostrarPais(Pais mostrar)
 void mostrarCiudadesxPais()
 {
     FILE* archivo;
-    Ciudad leer;
-    Pais retorno;
+    Ciudad leerCiudad,guardarCapital;
+    Pais retornoPais;
     char codigo[4];
     cin.ignore();
-    archivo = fopen(ARCHIVO_CIUDADES,"rb");
     bool salir=false;
     while(salir==false)
     {
+        archivo = fopen(ARCHIVO_CIUDADES,"rb");
+        cout <<" \nIngrese el codigo de pais, por ejemplo ARG" << endl;
         cin.getline(codigo,4);
         clrscr();
-        if (existeRegistro(codigo)==true)
+        if (existeRegistro(codigo)==true) //fvalido el codigo ingresado
         {
-            retorno = obtenerRegistroPais(codigo);
-            while(fread(&leer,sizeof(Ciudad),1,archivo)==1)
+            retornoPais = obtenerRegistroPais(codigo);
+            while(fread(&leerCiudad,sizeof(Ciudad),1,archivo)==1)
             {
-                if (strcmp(leer._idpais,retorno._codigo)==0)
+                if ((strcmp(leerCiudad._idpais,retornoPais._codigo)==0) && (retornoPais._capital!= leerCiudad._ID))
                 {
-                    cout << leer._ID << endl;
-                    cout << leer._nombre << endl;
-                    cout << leer._idpais << endl;
-                    cout << leer._poblacion << endl;
+                    cout << "Codigo de ciudad: " << leerCiudad._ID << endl;
+                    cout << "Nombre:           " << leerCiudad._nombre << endl;
+                    cout << "Pais:             " << leerCiudad._idpais << endl;
+                    cout << "Poblacion:        " << leerCiudad._poblacion <<" habitantes."<< endl;
                     cout << "------------------------------" << endl;
                 }
+                else if (retornoPais._capital==leerCiudad._ID)
+                {
+                    guardarCapital._ID = leerCiudad._ID;
+                    strcpy(guardarCapital._idpais,leerCiudad._idpais);
+                    strcpy(guardarCapital._nombre,leerCiudad._nombre);
+                    guardarCapital._poblacion = leerCiudad._poblacion;
+                }
             }
-            salir = SalirDeFuncion();
+            cout << endl;
+            cout << "Ciudad Capital de "<< guardarCapital._idpais << endl;
+            cout << "Codigo de ciudad: " << guardarCapital._ID << endl;
+            cout << "Nombre:           " << guardarCapital._nombre << endl;
+            cout << "Poblacion:        " << guardarCapital._poblacion <<" habitantes."<< endl;
+            cout << "------------------------------" << endl;
         }
         else
         {
             cout << "ERROR: Codigo Inexistente" << endl;
         }
-
+        fclose(archivo);
+        salir = SalirDeFuncion();
+        clrscr();
     }
 }
 
-struct Pais obtenerRegistroPais(char *pais)
+struct Pais obtenerRegistroPais(char *pais) // Recibe el nombre del Pais y busca su registro.
+// Revisar la opción de pedir primero el ingreso para obtener el Registro y luego leer el archivo Ciudades.
 {
     Pais buscar;
     FILE* archivo;
@@ -235,33 +252,75 @@ struct Pais obtenerRegistroPais(char *pais)
 void listarPaises_Superficies()
 {
     const int tam = contarPaises();
-    float porc=0,sumaSuperficies=0;
-    Pais sumar, leer[tam];
+    double porc=0,sumaSuperficies=0;
+    Pais leer[tam];
     FILE* archivo;
     //abro archivo
     archivo=fopen(ARCHIVO_PAISES,"rb");
     if (archivo==NULL)
     {
-        cout << "Error: Archivo no existente" << endl;
+        cout << "ERROR DE APERTURA" << endl;
     }
     fread(leer,sizeof(Pais),tam,archivo);
     //leo el archivo
-    while(fread(&sumar,sizeof(Pais),1,archivo)==1)
+    for (int i=0; i<tam; i++)
     {
         //sumo para obtener la superficie mundial
-        sumaSuperficies =+ sumar._superficie;
+        sumaSuperficies += leer[i]._superficie;
 
     }
     for (int x=0; x<tam; x++)
     {
-        porc = ((leer[x]._superficie*100)/sumaSuperficies);
-        cout << "La superficie de " << leer[x]._nombre << "\trepresenta el : " << porc << endl;
+        porc = (leer[x]._superficie/sumaSuperficies)*100;
+        cout << "PAIS:          " << leer[x]._nombre <<endl;
+        cout << "Superficie:    " << leer[x]._superficie << " Km cuadrados" <<endl;
+        cout << "Representa el: " << porc <<" % de la superficie mundial." << endl;
         cout << "------------------------------------------------------------------------" << endl;
     }
+    cout << "La superficie mundial es "<< sumaSuperficies<<endl;
     fclose(archivo);
     system("pause");
 }
 
+// 6) --------------------------------------------------------------
+
+void totalesxContinente()// Leo el archivo Paises. Dentro de la función se debe pedir al Usuario que
+//ingrese el nombre del Pais. Guardo en un vector los registros.
+// Luego calculo los totales y promedios.
+{
+    FILE *archivo;
+    const int tam = contarPaises();
+    double sumaSuperficieContinente=0;
+//    else
+//    {
+//    fread(leer,sizeof(Pais),tam,archivo); //leo el archivo
+//    for (int i=0; i<tam; i++)
+//    {
+//        //sumo para obtener la superficie mundial
+//        sumaSuperficieContinente += leer[i]._superficie;
+//
+//    }
+//    for (int x=0; x<tam; x++)
+//    {
+//        porc = (leer[x]._superficie/sumaSuperficies)*100;
+//        cout << "PAIS:          " << leer[x]._nombre <<endl;
+//        cout << "Superficie:    " << leer[x]._superficie << " Km cuadrados" <<endl;
+//        cout << "Representa el: " << porc <<" % de la superficie mundial." << endl;
+//        cout << "------------------------------------------------------------------------" << endl;
+//    }
+//    cout << "La superficie mundial es "<< sumaSuperficies<<endl;
+//    fclose(archivo);
+//    system("pause");
+
+
+
+
+
+//    }
+//    system ("pause");
+//    // cierro archivo
+//    fclose(archivo);
+}
 
 // 9) --------------------------------------------------------------
 
@@ -335,6 +394,7 @@ bool SalirDeFuncion()
     cout << "1- Continuar en la funcion" << endl;
     cout << "0- Volver al menu principal" << endl;
     cin >> opc;
+    cin.ignore();
     switch (opc)
     {
     case 1:
@@ -345,6 +405,8 @@ bool SalirDeFuncion()
         break;
     }
 }
+
+
 
 
 #endif // FUNCIONES_H_INCLUDED

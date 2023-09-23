@@ -3,8 +3,8 @@ struct Pais{
     char _codigo2[3];
     char _nombre[45];
     char _continente[20];
+    //double _superficie;
     float _superficie;
-    //long _superficie;
     int _poblacion;
     short _independencia;
     float _expectativaDeVida;
