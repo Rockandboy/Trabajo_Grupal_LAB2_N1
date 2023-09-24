@@ -2,13 +2,15 @@
 #define FUNCIONES_H_INCLUDED
 
 /// Colocar las Librerías que se utilizarán
-//hola
+
 #include "Structs.h" /// Librería con los Structs y constantes de los Archivos
 #include "string.h"
 #include <cstdio>
 #include <iostream>
-#include <locale.h> /// Libreria que contiene la funcion setlocale
+#include "libxl.h"
+//#include <locale.h> /// Libreria que contiene la funcion setlocale (rompe el diseño del menú)
 
+using namespace libxl; /// Utiliza el espacio de nombres de libxl para abreviar las referencias
 using namespace std;
 
 /// --------------------------- PROTOTIPOS DE LAS FUNCIONES ---------------------------
@@ -67,6 +69,9 @@ long long contarPoblacionMundial();
 /// PUNTOS 11 y 12 (OPCIONALES)
 /// COLOCAR AQUÍ LOS PROTOTIPOS DE LAS FUNCIONES
 
+int exportarAexcel();
+void crearExcel(); //void cargarHoja1(Sheet *hoja);
+void cargarHoja2(Sheet *hoja, Book *libro);
 bool SalirDeFuncion();
 void menuModificacionPais();
 struct Ciudad obtenerRegistroCiudad(int ciudad);
@@ -742,4 +747,104 @@ struct Ciudad obtenerRegistroCiudad(int ciudad)
         }
     }
 }
+
+int exportarAexcel()
+{
+    //setlocale(LC_ALL, ""); // mostrar caracteres en español
+    crearExcel();
+    cout << "" << endl;
+    cout << "El Libro se ha creado con Exito!" << endl;
+    system("pause");
+    return 0;
+}
+
+
+void crearExcel()
+{
+    //setlocale(LC_ALL, ""); // mostrar caracteres en español
+
+    /// Crea un objeto 'Book' que representa un libro de Excel
+    Book* book = xlCreateBook(); // xlCreateXMLBook() para formato xlsx
+
+    if (book)   /// Verifica si se creó correctamente el Libro
+    {
+        /// Crea una hoja en el libro de Excel con el nombre "Sheet1"
+        Sheet* hoja1 = book->addSheet("PAISES");
+        Sheet* hoja2 = book->addSheet("CIUDADES");
+//        Sheet* hoja3 = book->addSheet("Colores y Alineación");
+
+        if (hoja1) // Verifica si se creó correctamente la hoja
+        {
+            //setlocale(LC_ALL, ""); // mostrar caracteres en español
+            /// FILA,COLUMNA, DATO
+            /// Escribe una cadena en la celda (1, 1) de la hoja
+            hoja1->writeStr(1, 1, "Codigo");    /// writeStr: Para Cadenas
+            hoja1->writeStr(1, 2, "Codigo2");   /// Escribe una cadena en la celda (1, 2) de la hoja
+            hoja1->writeStr(1, 3, "Nombre");    /// Escribe una cadena en la celda (1, 3) de la hoja
+            hoja1->writeStr(1, 4, "Continente");
+            hoja1->writeStr(1, 5, "Superficie");
+            hoja1->writeStr(1, 6, "Poblacion");
+            hoja1->writeStr(1, 7, "Independencia");
+            hoja1->writeStr(1, 8, "Expectativa de vida");
+            hoja1->writeStr(1, 9, "Capital");
+
+            int i=2;
+            FILE* archivo;
+            Pais Datos;
+            archivo = fopen(ARCHIVO_PAISES,"rb");
+            while(fread(&Datos,sizeof(Pais),1,archivo)==1)
+            {
+                hoja1->writeStr(i, 1, Datos._codigo);  /// writeStr: Para Cadenas
+                hoja1->writeStr(i, 2, Datos._codigo2);
+                hoja1->writeStr(i, 3, Datos._nombre);
+                hoja1->writeStr(i, 4, Datos._continente);
+                hoja1->writeNum(i, 5, Datos._superficie);
+                hoja1->writeNum(i, 6, Datos._poblacion);
+                hoja1->writeNum(i, 7, Datos._independencia);
+                hoja1->writeNum(i, 8, Datos._expectativaDeVida);
+                hoja1->writeNum(i, 9, Datos._capital);
+                i++;
+            }
+            fclose(archivo);
+        }
+        if(hoja2)
+        {
+            cargarHoja2(hoja2, book);
+        }
+
+
+/// Guarda el libro de Excel con el nombre "Datos_paises_y_ciudades.xls"
+        book->save("Datos_paises_y_ciudades.xls");
+
+        /// Libera los recursos asociados al objeto 'Book'
+        book->release();
+    }
+}
+void cargarHoja2(Sheet *hoja2, Book *libro)
+{
+
+    //setlocale(LC_ALL, ""); // mostrar caracteres en español
+    hoja2->writeStr(1, 1, "Codigo");    /// writeStr: Para Cadenas
+    hoja2->writeStr(1, 2, "Nombre");   /// Escribe una cadena en la celda (1, 2) de la hoja
+    hoja2->writeStr(1, 3, "ID Pais");    /// Escribe una cadena en la celda (1, 3) de la hoja
+    hoja2->writeStr(1, 4, "Poblacion");
+
+
+    int i=2;
+    FILE* archivo;
+    Ciudad Datos;
+    archivo = fopen(ARCHIVO_CIUDADES,"rb");
+    while(fread(&Datos,sizeof(Ciudad),1,archivo)==1)
+    {
+        //setlocale(LC_ALL, ""); // mostrar caracteres en español
+        hoja2->writeNum(i, 1, Datos._ID);  /// writeStr: Para Cadenas
+        hoja2->writeStr(i, 2, Datos._nombre);
+        hoja2->writeStr(i, 3, Datos._idpais);
+        hoja2->writeNum(i, 4, Datos._poblacion);
+        i++;
+    }
+    fclose(archivo);
+}
+
+
 #endif // FUNCIONES_H_INCLUDED

@@ -11,14 +11,17 @@ using namespace std;
 void menuPaises();
 void menuCiudades();
 void menuReportes();
+void menuConfig();
 
-int MenuPrincipal(){
+int MenuPrincipal()
+{
     int opc;
 
-    while(true){
+    while(true)
+    {
         clrscr();
         system("COLOR 0F");
-        recuadro(2,1,40,13,cAZUL,cGRIS_CLARO);
+        recuadro(2,1,40,15,cAZUL,cGRIS_CLARO);
         gotoxy(3,2);
         cout << "---------------------------------------" << endl;
         gotoxy(12,3);
@@ -31,16 +34,19 @@ int MenuPrincipal(){
         cout << "   2 - CIUDADES" << endl;
         gotoxy(13,7);
         cout << "   3 - REPORTES" << endl;
-        gotoxy(3,8);
+        gotoxy(13,8);
+        cout << "   4 - CONFIGURACIONES" << endl;
+        gotoxy(3,9);
         cout << "---------------------------------------" << endl;
-        gotoxy(13,9);
+        gotoxy(13,10);
         cout << "   0 - SALIR" << endl;
         cout << endl;
         gotoxy(3,12);
         cout << "OPCION: ";
         cin >> opc;
 
-        switch(opc){
+        switch(opc)
+        {
         case 1:
             clrscr();
             menuPaises();
@@ -52,6 +58,10 @@ int MenuPrincipal(){
         case 3:
             clrscr();
             menuReportes();
+            break;
+        case 4:
+            clrscr();
+            menuConfig();
             break;
         case 0:
             cout << endl << endl;
@@ -71,10 +81,12 @@ int MenuPrincipal(){
     }
 }
 
-void menuPaises(){
+void menuPaises()
+{
     int opc;
 
-    while(true){
+    while(true)
+    {
         clrscr();
         system("COLOR 0F");
         recuadro(2,1,40,13,cAZUL,cGRIS_CLARO);
@@ -101,7 +113,8 @@ void menuPaises(){
         cout << "OPCION: ";
         cin >> opc;
 
-        switch(opc){
+        switch(opc)
+        {
         case 1:
             clrscr();
             cargarPais();
@@ -136,10 +149,12 @@ void menuPaises(){
     }
 }
 
-void menuCiudades(){
+void menuCiudades()
+{
     int opc;
 
-    while(true){
+    while(true)
+    {
         clrscr();
         system("COLOR 0F");
         recuadro(2,1,40,13,cAZUL,cGRIS_CLARO);
@@ -162,7 +177,8 @@ void menuCiudades(){
         cout << "OPCION: ";
         cin >> opc;
 
-        switch(opc){
+        switch(opc)
+        {
         case 1:
             clrscr();
             //contarCiudades();
@@ -190,10 +206,12 @@ void menuCiudades(){
     }
 }
 
-void menuReportes(){
+void menuReportes()
+{
     int opc;
 
-    while(true){
+    while(true)
+    {
         clrscr();
         system("COLOR 0F");
         recuadro(2,1,40,13,cAZUL,cGRIS_CLARO);
@@ -218,7 +236,8 @@ void menuReportes(){
         cout << "OPCION: ";
         cin >> opc;
 
-        switch(opc){
+        switch(opc)
+        {
         case 1:
             clrscr();
             totalesxContinente();
@@ -248,5 +267,68 @@ void menuReportes(){
         }
     }
 }
+
+void menuConfig()
+{
+    int opc;
+
+    while(true)
+    {
+        clrscr();
+        system("COLOR 0F");
+        recuadro(2,1,40,13,cAZUL,cGRIS_CLARO);
+        gotoxy(3,2);
+        cout << "---------------------------------------" << endl;
+        gotoxy(12,3);
+        cout << "-  MENU CONFIGURACIONES  -" << endl;
+        gotoxy(3,4);
+        cout << "---------------------------------------" << endl;
+        gotoxy(5,5);
+        cout << "   1 - Realizar Backup" << endl;
+        gotoxy(5,6);
+        cout << "   2 - Restaurar archivos" << endl;
+        gotoxy(5,7);
+        cout << "   3 - Exportar a Excel" << endl;
+        gotoxy(3,8);
+        cout << "---------------------------------------" << endl;
+        gotoxy(13,9);
+        cout << "   0 - REGRESAR" << endl;
+        cout << endl;
+        gotoxy(3,12);
+        cout << "OPCION: ";
+        cin >> opc;
+
+        switch(opc)
+        {
+        case 1:
+            clrscr();
+            //backupArchivo();
+            break;
+        case 2:
+            clrscr();
+            //restaurarArchivo();
+            break;
+        case 3:
+            clrscr();
+            exportarAexcel();
+            break;
+        case 0:
+            cout << endl << endl;
+            return;
+            break;
+        default:
+            HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+            // Cambia el color de texto a blanco (12) y el fondo a rojo (4) antes de imprimir el texto.
+            int color = 7 | (12 << 4);
+            SetConsoleTextAttribute(hConsole, color);
+            gotoxy(13,13);
+            cout << "OPCION INCORRECTA" << endl;
+            pause();
+            recuadro(2,1,40,13,cAZUL,cGRIS_CLARO);
+            break;
+        }
+    }
+}
+
 
 #endif // MENU_H_INCLUDED
