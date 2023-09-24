@@ -104,7 +104,7 @@ void menuPaises(){
         switch(opc){
         case 1:
             clrscr();
-            //cargarPais();
+            cargarPais();
             break;
         case 2:
             clrscr();

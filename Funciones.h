@@ -136,9 +136,9 @@ void cargarPais()
             cout << "ERROR: Codigo Existente" << endl;
         }
         salir=SalirDeFuncion();
-
     }
 }
+
 
 void grabarPais(Pais reg)
 {
@@ -151,6 +151,7 @@ void grabarPais(Pais reg)
     fclose(archivo);
 }
 
+
 // 3) --------------------------------------------------------------
 //   Agregar una función global que permita listar todos los países del archivo de países.
 
@@ -158,20 +159,26 @@ void leerPaises()
 {
     //setlocale(LC_ALL, ""); // mostrar caracteres en español
     FILE *archivo;
-
     Pais leer;// variable tipo struct Pais donde guardo el contenido a mostrar
     //apertura del archivo "MODO: Lectura"
     archivo = fopen(ARCHIVO_PAISES,"rb");
     // leo el archivo
-    while(fread(&leer, sizeof(Pais),1,archivo)==1)
+    if (archivo==NULL)
     {
-        mostrarPais(leer);
-
+        cout << "ERROR DE APERTURA" << endl;
+    }
+    else
+    {
+        while(fread(&leer, sizeof(Pais),1,archivo)==1)
+        {
+            mostrarPais(leer);
+        }
     }
     system ("pause");
     // cierro archivo
     fclose(archivo);
 }
+
 
 void mostrarPais(Pais mostrar)
 {
@@ -186,6 +193,7 @@ void mostrarPais(Pais mostrar)
     cout << "   Capital:\t        "<<mostrar._capital<<endl;
     cout <<endl;
 }
+
 
 // 4) --------------------------------------------------------------
 //  Agregar una función global que permita listar todas las ciudades y su población que pertenezcan a un país
@@ -244,6 +252,7 @@ void mostrarCiudadesxPais()
     }
 }
 
+
 struct Pais obtenerRegistroPais(char *pais) // Recibe el nombre del Pais y busca su registro.
 // Revisar la opción de pedir primero el ingreso para obtener el Registro y luego leer el archivo Ciudades.
 {
@@ -258,6 +267,8 @@ struct Pais obtenerRegistroPais(char *pais) // Recibe el nombre del Pais y busca
         }
     }
 }
+
+
 // 5) --------------------------------------------------------------
 //  Agregar una función global que permita listar todos los países con su nombre y superﬁcie.
 //  Además, indicar qué porcentaje representa esa superﬁcie sobre el total mundial.
@@ -290,10 +301,12 @@ void listarPaises_Superficies()
         cout << "Representa el: " << porc <<" % de la superficie mundial." << endl;
         cout << "------------------------------------------------------------------------" << endl;
     }
-    cout << "La superficie mundial es "<< sumaSuperficies<<endl;
+    cout << "La superficie mundial es "<< sumaSuperficies <<endl;
+    cout << "" <<endl;
     fclose(archivo);
     system("pause");
 }
+
 
 // 6) --------------------------------------------------------------
 //  Agregar una función global que calcule estadísticas especíﬁcas por Continente,
@@ -365,14 +378,14 @@ void totalesxContinente()// Leo el archivo Paises. Dentro de la función se debe
 }
 
 
-
-
 // 7) --------------------------------------------------------------
 ///void modificarPais()               // Pido el codigo de pais a modificar.
 // Verificar que exista.
 // Buscar registro (usar función respectiva).
 // Ingresar los nuevos valores y reemplazar.
 ///void grabarModificado(Pais reg)    // Guardar Pais Modificado.
+
+
 
 // 8) --------------------------------------------------------------
 ///void modificarCiudad()             // Pido el codigo de la ciudad a modificar.
@@ -381,14 +394,13 @@ void totalesxContinente()// Leo el archivo Paises. Dentro de la función se debe
 ///void grabarModificado(Ciudad reg)  // Guardar Ciudad Modificada. (SOBRECARGA DE FUNCIONES)
 
 
+
 // 9) --------------------------------------------------------------
 // Agregar una función global que nos muestre la cantidad de Países existentes
 // y el total de la poblacion mundial.
 
 void totalesPais_Poblacion()
 {
-    //setlocale(LC_ALL, ""); // mostrar caracteres en español
-
     cout<<""<<endl;
     cout << "----------------------------------------------------------" << endl;
     cout<<" El total de paises es: "<<contarPaises()<<endl;
@@ -413,6 +425,7 @@ int contarCiudades()
 
     return totalCiudades;
 }
+
 
 // 10) --------------------------------------------------------------
 // Agregar una función global que muestre la ciudad con mayor población en todo el Mundo.

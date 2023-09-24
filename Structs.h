@@ -1,9 +1,10 @@
-struct Pais{
+struct Pais
+{
     char _codigo[4];
     char _codigo2[3];
     char _nombre[45];
     char _continente[20];
-    //double _superficie;
+    //double _superficie;  Porque tira error ??
     float _superficie;
     int _poblacion;
     short _independencia;

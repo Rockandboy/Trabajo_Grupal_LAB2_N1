@@ -127,7 +127,7 @@
 1695351687 source:c:\users\fabu\desktop\github_repo\trabajo_grupal_lab2_n1\main.cpp
 	"Menu.h"
 
-1695519056 c:\users\fabu\desktop\github_repo\trabajo_grupal_lab2_n1\menu.h
+1695585861 c:\users\fabu\desktop\github_repo\trabajo_grupal_lab2_n1\menu.h
 	<windows.h>
 	<iostream>
 	"graficos.h"
@@ -136,12 +136,12 @@
 1695351687 c:\users\fabu\desktop\github_repo\trabajo_grupal_lab2_n1\graficos.h
 	<iostream>
 
-1695583140 c:\users\fabu\desktop\github_repo\trabajo_grupal_lab2_n1\funciones.h
+1695586372 c:\users\fabu\desktop\github_repo\trabajo_grupal_lab2_n1\funciones.h
 	"Structs.h"
 	"string.h"
 	<cstdio>
 	<iostream>
 	<locale.h>
 
-1695428715 c:\users\fabu\desktop\github_repo\trabajo_grupal_lab2_n1\structs.h
+1695585710 c:\users\fabu\desktop\github_repo\trabajo_grupal_lab2_n1\structs.h
 
