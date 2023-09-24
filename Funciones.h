@@ -12,7 +12,7 @@
 using namespace std;
 
 /// --------------------------- PROTOTIPOS DE LAS FUNCIONES ---------------------------
-/// 1) --------------------------------------------------------------
+// 1) --------------------------------------------------------------
 bool existeRegistro(char *codigo);  // Verifico si existe Registro.
 
 // 2) --------------------------------------------------------------
@@ -34,7 +34,8 @@ void listarPaises_Superficies();    // Leer y guardar los Registros en un Vector
 // Mostrar dentro de la función misma, NOMBRE - SUPERFICIE - PORCENTAJE %
 
 // 6) --------------------------------------------------------------
-void totalesxContinente(); // Leo el archivo Paises. Dentro de la función se debe pedir al Usuario que ingrese el nombre del Pais.
+void totalesxContinente();
+// Leo el archivo Paises. Dentro de la función se debe pedir al Usuario que ingrese el nombre del Pais.
 // Guardo en un vector los registros.
 // Calculo los totales y promedios. Muestro.
 
@@ -61,7 +62,7 @@ void buscarMayorPoblacion();
 int contarPaises();     // Contar Registros Archivo Paises
 int contarCiudades();   // Contar Registros Archivo Ciudades
 
-int contarPoblacionMundial();
+long long contarPoblacionMundial();
 
 /// PUNTOS 11 y 12 (OPCIONALES)
 /// COLOCAR AQUÍ LOS PROTOTIPOS DE LAS FUNCIONES
@@ -70,7 +71,10 @@ bool SalirDeFuncion();
 
 /// --------------------------- DESARROLLO DE LAS FUNCIONES ---------------------------
 
-/// 1) --------------------------------------------------------------
+// 1) --------------------------------------------------------------
+//  Agregar una función global que busque un registro de país a partir de su código.
+//  La función debe poder devolver si el registro existe o no.
+
 bool existeRegistro(char *codigo)  // Verifico si existe Registro.
 {
     bool retorno=false;
@@ -96,6 +100,8 @@ bool existeRegistro(char *codigo)  // Verifico si existe Registro.
 }
 
 // 2) --------------------------------------------------------------
+//  Agregar una función global que permita agregar un registro de País al archivo de países
+
 void cargarPais()
 {
     Pais cargar;
@@ -137,15 +143,17 @@ void cargarPais()
 void grabarPais(Pais reg)
 {
     FILE* archivo;
-    ///apertura
+    //apertura
     archivo = fopen(ARCHIVO_PAISES,"ab");
-    ///carga de registros
+    //carga de registros
     fwrite(&reg,sizeof(Pais),1,archivo);
-    ///cierro el archivo
+    //cierro el archivo
     fclose(archivo);
 }
 
 // 3) --------------------------------------------------------------
+//   Agregar una función global que permita listar todos los países del archivo de países.
+
 void leerPaises()
 {
     //setlocale(LC_ALL, ""); // mostrar caracteres en español
@@ -180,6 +188,10 @@ void mostrarPais(Pais mostrar)
 }
 
 // 4) --------------------------------------------------------------
+//  Agregar una función global que permita listar todas las ciudades y su población que pertenezcan a un país
+//  cuyo código se ingresa previamente por teclado.
+//  Mostrar la capital del país, si se tiene registro de ella, al ﬁnal de todo.
+
 void mostrarCiudadesxPais()
 {
     FILE* archivo;
@@ -191,10 +203,10 @@ void mostrarCiudadesxPais()
     while(salir==false)
     {
         archivo = fopen(ARCHIVO_CIUDADES,"rb");
-        cout <<" \nIngrese el codigo de pais, por ejemplo ARG" << endl;
+        cout <<" \n Ingrese el codigo de pais, por ejemplo ARG" << endl;
         cin.getline(codigo,4);
         clrscr();
-        if (existeRegistro(codigo)==true) //fvalido el codigo ingresado
+        if (existeRegistro(codigo)==true) //valido el codigo ingresado
         {
             retornoPais = obtenerRegistroPais(codigo);
             while(fread(&leerCiudad,sizeof(Ciudad),1,archivo)==1)
@@ -247,10 +259,12 @@ struct Pais obtenerRegistroPais(char *pais) // Recibe el nombre del Pais y busca
     }
 }
 // 5) --------------------------------------------------------------
+//  Agregar una función global que permita listar todos los países con su nombre y superﬁcie.
+//  Además, indicar qué porcentaje representa esa superﬁcie sobre el total mundial.
 
 void listarPaises_Superficies()
 {
-    const int tam = contarPaises();
+    const int tam = contarPaises();//cantidad de paises
     double porc=0,sumaSuperficies=0;
     Pais leer[tam];
     FILE* archivo;
@@ -282,46 +296,108 @@ void listarPaises_Superficies()
 }
 
 // 6) --------------------------------------------------------------
+//  Agregar una función global que calcule estadísticas especíﬁcas por Continente,
+//  como la población total, y la densidad poblacional promedio de cada continente.
 
 void totalesxContinente()// Leo el archivo Paises. Dentro de la función se debe pedir al Usuario que
-//ingrese el nombre del Pais. Guardo en un vector los registros.
+// ingrese el nombre del Pais. Guardo en un vector los registros.
 // Luego calculo los totales y promedios.
 {
     FILE *archivo;
-    const int tam = contarPaises();
-    double sumaSuperficieContinente=0;
-//    else
-//    {
-//    fread(leer,sizeof(Pais),tam,archivo); //leo el archivo
-//    for (int i=0; i<tam; i++)
-//    {
-//        //sumo para obtener la superficie mundial
-//        sumaSuperficieContinente += leer[i]._superficie;
-//
-//    }
-//    for (int x=0; x<tam; x++)
-//    {
-//        porc = (leer[x]._superficie/sumaSuperficies)*100;
-//        cout << "PAIS:          " << leer[x]._nombre <<endl;
-//        cout << "Superficie:    " << leer[x]._superficie << " Km cuadrados" <<endl;
-//        cout << "Representa el: " << porc <<" % de la superficie mundial." << endl;
-//        cout << "------------------------------------------------------------------------" << endl;
-//    }
-//    cout << "La superficie mundial es "<< sumaSuperficies<<endl;
-//    fclose(archivo);
-//    system("pause");
+    const int tam = contarPaises();//tam cantidad de paises
+    long  supContinente=0, pobContinente=0; //si es double dá resultado con notacion cientifica
+    double densPoblacional=0;
 
+    cin.ignore();
+    Pais vLeer[tam], continente; //vector donde guardo datos para leer
+    Pais retornoPais; //guardo los registros del codigo de pais ingresado
+    char codigo[4];
+    bool salir=false;
+    while(salir==false)
+    {
+        archivo = fopen(ARCHIVO_PAISES,"rb");
+        if (archivo==NULL) // verifico si abrió bien
+        {
+            cout << "ERROR DE APERTURA" << endl;
+        }
+        fread(vLeer,sizeof(Pais),tam,archivo); //leo el archivo
 
+        cout <<"\nIngrese el codigo de pais, por ejemplo ARG" << endl;
+        cin.getline(codigo,4);
+        clrscr();
 
+        if (existeRegistro(codigo)==true) //valido el codigo ingresado
+        {
+            retornoPais = obtenerRegistroPais(codigo);
 
+            cout<<""<<endl;
+            cout << "----------------------------------------------------------" << endl;
+            cout << "Pais:                 " << retornoPais._nombre << endl;
+            cout << "Continente            " << retornoPais._continente << endl;
 
-//    }
-//    system ("pause");
-//    // cierro archivo
-//    fclose(archivo);
+            for (int i=0; i<tam; i++)
+            {
+                if(strcmp(retornoPais._continente,vLeer[i]._continente)==0)
+                {
+                    supContinente+=vLeer[i]._superficie;
+                    pobContinente+=vLeer[i]._poblacion;
+                    densPoblacional=pobContinente/supContinente;
+                }
+            }
+            cout << "----------------------------------------------------------" << endl;
+            cout << "Datos estadisticos de " << retornoPais._continente << ":" <<endl;
+            cout << "" << endl;
+            cout << "Superficie:           " << supContinente <<" Km cuadrados"<<endl;
+            cout << "Poblacion:            "<< pobContinente <<" habitantes"<<endl;
+            cout << "Densidad poblacional  "<< densPoblacional <<" habitantes por Km cuadrado"<<endl;
+            cout << endl;
+        }
+        else
+        {
+            cout << "ERROR: Codigo Inexistente" << endl;
+        }
+        fclose(archivo);// cierro archivo
+        salir = SalirDeFuncion();
+        supContinente = 0;
+        pobContinente = 0;
+        densPoblacional = 0;
+    }
 }
 
+
+
+
+// 7) --------------------------------------------------------------
+///void modificarPais()               // Pido el codigo de pais a modificar.
+// Verificar que exista.
+// Buscar registro (usar función respectiva).
+// Ingresar los nuevos valores y reemplazar.
+///void grabarModificado(Pais reg)    // Guardar Pais Modificado.
+
+// 8) --------------------------------------------------------------
+///void modificarCiudad()             // Pido el codigo de la ciudad a modificar.
+//bool existeRegistro(int id)        // Verifico si existe Registro. (SOBRECARGA DE FUNCIONES)
+// Ingreso codigo pais y verifico si existe
+///void grabarModificado(Ciudad reg)  // Guardar Ciudad Modificada. (SOBRECARGA DE FUNCIONES)
+
+
 // 9) --------------------------------------------------------------
+// Agregar una función global que nos muestre la cantidad de Países existentes
+// y el total de la poblacion mundial.
+
+void totalesPais_Poblacion()
+{
+    //setlocale(LC_ALL, ""); // mostrar caracteres en español
+
+    cout<<""<<endl;
+    cout << "----------------------------------------------------------" << endl;
+    cout<<" El total de paises es: "<<contarPaises()<<endl;
+    cout<<""<<endl;
+    cout<<" El total de la poblacion mundial es: "<<contarPoblacionMundial()<<endl;
+    cout << "----------------------------------------------------------" << endl;
+    cout<<""<<endl;
+    system ("pause");
+}
 
 int contarCiudades()
 {
@@ -338,31 +414,76 @@ int contarCiudades()
     return totalCiudades;
 }
 
+// 10) --------------------------------------------------------------
+// Agregar una función global que muestre la ciudad con mayor población en todo el Mundo.
+// Mostrando su: Nombre de Ciudad, Población, Nombre de País y Continente al que pertenece.
+
+void buscarMayorPoblacion()
+{
+    const int tam = contarCiudades(); //cantidad de ciudades
+    FILE *archivo;
+    bool bandera = false;
+    char codigoPais[4]; //guarda codigo de pais de ciudad con mayor poblacion,
+    //se usa para enviar a la funcion que devuelve el registro del pais completo
+    Pais retornoPais; //variable tio struc Pais que guarda lo que devuelve la funcion obteberRegistroPais.
+    Ciudad ciudades[tam], ciudadMax;
+    archivo = fopen(ARCHIVO_CIUDADES,"rb");
+    if (archivo==NULL) // verifico si abrió bien
+    {
+        cout << "ERROR DE APERTURA" << endl;
+    }
+    fread(ciudades,sizeof(Ciudad),tam,archivo);
+    for (int i=0; i<tam; i++) //comparo mayor poblacion
+    {
+        if (bandera == false)
+        {
+            bandera = true;
+            ciudadMax._poblacion = ciudades[i]._poblacion;
+        }
+        else if (ciudadMax._poblacion < ciudades[i]._poblacion)
+        {
+            ciudadMax._poblacion = ciudades[i]._poblacion;//guardo poblacion maxima
+            strcpy(ciudadMax._nombre,ciudades[i]._nombre);//guardo nombre ciudad mayor Pob
+            strcpy(ciudadMax._idpais,ciudades[i]._idpais);//guardo id pais de ciudad mayor Pob
+        }
+    }
+    strcpy(codigoPais,ciudadMax._idpais);//guardo en codigoPais el ID de pais de ciudad mayor Pob
+    retornoPais = obtenerRegistroPais(codigoPais);//envio a funcion el dato para obtener el codPais
+    cout<<""<<endl;
+    cout << "----------------------------------------------------------" << endl;
+    cout << "Ciudad con mayor poblacion mundial: " << ciudadMax._nombre<<endl;
+    cout << "Habitantes:                         " << ciudadMax._poblacion<<endl;
+    cout << "Pais:                               " << retornoPais._nombre<<endl;
+    cout << "Continente:                         " << retornoPais._continente<<endl;
+    cout << "----------------------------------------------------------" << endl;
+    system("pause");
+    fclose(archivo); //cierro archivo
+}
+
+
 /// ADICIONALES IMPORTANTES
+
 int contarPaises()
 {
     // abro el archivo en modo lectura
     FILE *archivo;
     int totalPaises=0;
-    Pais contarP;
-    //Pais contarPais;// variable tipo struct Pais donde guardo el contenido a mostrar
+    Pais contarP;//variable tipo struct Pais donde guardo el contenido a mostrar
     archivo = fopen(ARCHIVO_PAISES,"rb");
     // leo el archivo
     while(fread(&contarP, sizeof(Pais),1,archivo)==1)
     {
         totalPaises++;
     }
-    // cierro archivo
-    fclose(archivo);
-
-    return totalPaises;
+    fclose(archivo);// cierro archivo
+    return totalPaises;//retorno de la funcion (cantidad de paises)
 }
 
-/// ADICIONALES IMPORTANTES
-int contarPoblacionMundial()
+
+long long contarPoblacionMundial()
 {
     FILE *archivo;
-    int totalPobMundial=0;
+    long long totalPobMundial=0;
     Pais poblacionMundial;
     archivo = fopen(ARCHIVO_PAISES,"rb");
     while(fread(&poblacionMundial, sizeof(Pais),1,archivo)==1)
@@ -373,18 +494,7 @@ int contarPoblacionMundial()
     return totalPobMundial;
 }
 
-/// ADICIONALES IMPORTANTES
-void totalesPais_Poblacion()
-{
-    //setlocale(LC_ALL, ""); // mostrar caracteres en español
 
-    cout<<""<<endl;
-    cout<<" El total de piíses es: "<<contarPaises()<<endl;
-    cout<<""<<endl;
-    cout<<" El total de la poblacion mundial es: "<<contarPoblacionMundial()<<endl;
-    cout<<""<<endl;
-    system ("pause");
-}
 bool SalirDeFuncion()
 {
     bool salir;
@@ -404,8 +514,5 @@ bool SalirDeFuncion()
         break;
     }
 }
-
-
-
 
 #endif // FUNCIONES_H_INCLUDED

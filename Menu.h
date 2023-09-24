@@ -221,7 +221,7 @@ void menuReportes(){
         switch(opc){
         case 1:
             clrscr();
-            //totalesxContinente();
+            totalesxContinente();
             break;
         case 2:
             clrscr();
@@ -229,7 +229,7 @@ void menuReportes(){
             break;
         case 3:
             clrscr();
-            //buscarMayorPoblacion();
+            buscarMayorPoblacion();
             break;
         case 0:
             cout << endl << endl;
