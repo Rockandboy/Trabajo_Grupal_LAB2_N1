@@ -106,7 +106,7 @@
 1695343731 source:d:\documentos\github\trabajo_grupal_lab2_n1\main.cpp
 	"Menu.h"
 
-1695423956 d:\documentos\github\trabajo_grupal_lab2_n1\menu.h
+1695587667 d:\documentos\github\trabajo_grupal_lab2_n1\menu.h
 	<windows.h>
 	<iostream>
 	"graficos.h"
@@ -115,14 +115,14 @@
 1695343731 d:\documentos\github\trabajo_grupal_lab2_n1\graficos.h
 	<iostream>
 
-1695424301 d:\documentos\github\trabajo_grupal_lab2_n1\funciones.h
+1695590223 d:\documentos\github\trabajo_grupal_lab2_n1\funciones.h
 	"Structs.h"
 	"string.h"
 	<cstdio>
 	<iostream>
 	<locale.h>
 
-1695424301 d:\documentos\github\trabajo_grupal_lab2_n1\structs.h
+1695586505 d:\documentos\github\trabajo_grupal_lab2_n1\structs.h
 
 1695351687 source:c:\users\fabu\desktop\github_repo\trabajo_grupal_lab2_n1\main.cpp
 	"Menu.h"

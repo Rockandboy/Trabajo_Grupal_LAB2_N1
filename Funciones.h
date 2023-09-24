@@ -13,7 +13,7 @@ using namespace std;
 
 /// --------------------------- PROTOTIPOS DE LAS FUNCIONES ---------------------------
 // 1) --------------------------------------------------------------
-bool existeRegistro(char *codigo);  // Verifico si existe Registro.
+bool existeRegistroPais(char *codigo);  // Verifico si existe Registro.
 
 // 2) --------------------------------------------------------------
 void cargarPais();          // Cargo un registro de Struct.
@@ -44,13 +44,13 @@ void modificarPais();               // Pido el codigo de pais a modificar.
 // Verificar que exista.
 // Buscar registro (usar función respectiva).
 // Ingresar los nuevos valores y reemplazar.
-void grabarModificado(Pais reg);    // Guardar Pais Modificado.
+void grabarPaisModificado(Pais reg);    // Guardar Pais Modificado.
 
 // 8) --------------------------------------------------------------
 void modificarCiudad();             // Pido el codigo de la ciudad a modificar.
-bool existeRegistro(int id);        // Verifico si existe Registro. (SOBRECARGA DE FUNCIONES)
+bool existeRegistroCiudad(int id);        // Verifico si existe Registro. (SOBRECARGA DE FUNCIONES)
 // Ingreso codigo pais y verifico si existe
-void grabarModificado(Ciudad reg);  // Guardar Ciudad Modificada. (SOBRECARGA DE FUNCIONES)
+void grabarCiudadModificado(Ciudad reg);  // Guardar Ciudad Modificada. (SOBRECARGA DE FUNCIONES)
 
 // 9) --------------------------------------------------------------
 void totalesPais_Poblacion();
@@ -68,6 +68,8 @@ long long contarPoblacionMundial();
 /// COLOCAR AQUÍ LOS PROTOTIPOS DE LAS FUNCIONES
 
 bool SalirDeFuncion();
+void menuModificacionPais();
+struct Ciudad obtenerRegistroCiudad(int ciudad);
 
 /// --------------------------- DESARROLLO DE LAS FUNCIONES ---------------------------
 
@@ -75,7 +77,7 @@ bool SalirDeFuncion();
 //  Agregar una función global que busque un registro de país a partir de su código.
 //  La función debe poder devolver si el registro existe o no.
 
-bool existeRegistro(char *codigo)  // Verifico si existe Registro.
+bool existeRegistroPais(char *codigo)  // Verifico si existe Registro.
 {
     bool retorno=false;
     FILE* archivo;
@@ -110,7 +112,7 @@ void cargarPais()
     while (salir==false)
     {
         cin.getline(codigo,4);
-        if (existeRegistro(codigo)==false)
+        if (existeRegistroPais(codigo)==false)
         {
             strcpy(cargar._codigo,codigo);
             cout << "Cargar Codigo 2 EJ: AR" << endl;
@@ -214,7 +216,7 @@ void mostrarCiudadesxPais()
         cout <<" \n Ingrese el codigo de pais, por ejemplo ARG" << endl;
         cin.getline(codigo,4);
         clrscr();
-        if (existeRegistro(codigo)==true) //valido el codigo ingresado
+        if (existeRegistroPais(codigo)==true) //valido el codigo ingresado
         {
             retornoPais = obtenerRegistroPais(codigo);
             while(fread(&leerCiudad,sizeof(Ciudad),1,archivo)==1)
@@ -339,7 +341,7 @@ void totalesxContinente()// Leo el archivo Paises. Dentro de la función se debe
         cin.getline(codigo,4);
         clrscr();
 
-        if (existeRegistro(codigo)==true) //valido el codigo ingresado
+        if (existeRegistroPais(codigo)==true) //valido el codigo ingresado
         {
             retornoPais = obtenerRegistroPais(codigo);
 
@@ -379,19 +381,210 @@ void totalesxContinente()// Leo el archivo Paises. Dentro de la función se debe
 
 
 // 7) --------------------------------------------------------------
-///void modificarPais()               // Pido el codigo de pais a modificar.
+void modificarPais()               // Pido el codigo de pais a modificar.
+{
+    Pais retorno;
+    char codigo[4],opc;
+    bool salir=false;
+    while (salir==false)
+    {
+        cout << "Ingrese el codigo a modificar" << endl;
+        cin.getline(codigo,4);
+        cout << endl;
+        if (existeRegistroPais(codigo)==true)
+        {
+            retorno = obtenerRegistroPais(codigo);
+            menuModificacionPais();
+            cin >> opc;
+            cin.ignore();
+            switch (opc)
+            {
+            case '1':
+            {
+                cout << "Ingrese el Codigo de pais para modificarlo" << endl;
+                ///cambiar nombre
+                cin.getline(retorno._nombre,45);
+                grabarPaisModificado(retorno);
+                salir = SalirDeFuncion();
+                break;
+            }
+            case '2':
+            {
+                cout << "Ingrese el continente para modificarlo" << endl;
+                ///Cambiar Continente
+                cin.getline(retorno._continente,20);
+                grabarPaisModificado(retorno);
+                salir = SalirDeFuncion();
+                break;
+            }
+            case '3':
+            {
+                cout << "Ingrese la poblacion para modificarlo" << endl;
+                ///Cambiar Poblacion
+                cin >> retorno._poblacion;
+                grabarPaisModificado(retorno);
+                salir = SalirDeFuncion();
+                break;
+            }
+            case '4':
+            {
+                cout << "Ingrese la expectativa de vida para modificarlo" << endl;
+                ///expectativa de vida
+                cin >> retorno._expectativaDeVida;
+                grabarPaisModificado(retorno);
+                salir = SalirDeFuncion();
+                break;
+            }
+            default:
+            {
+                cout << "Error: Opcion invalida" << endl;
+                //salir = SalirDeFuncion();
+                break;
+            }
+            }
+        }
+        else
+        {
+            cout << "ERROR: Codigo Inexistente" << endl;
+        }
+        clrscr();
+    }
+}
 // Verificar que exista.
 // Buscar registro (usar función respectiva).
 // Ingresar los nuevos valores y reemplazar.
-///void grabarModificado(Pais reg)    // Guardar Pais Modificado.
+void grabarPaisModificado(Pais reg)    // Guardar Pais Modificado.
+{
+    FILE* archivo;
+    Pais mod;
+    int grabo = 0;
+    archivo = fopen(ARCHIVO_PAISES,"rb+");
+    if (archivo == NULL)
+    {
+        cout << "Error: Archivo inexistente" << endl;
+    }
+    else
+    {
+        while(fread(&mod,sizeof(Pais),1,archivo)==1)
+        {
+            if (strcmp(mod._codigo,reg._codigo)==0)
+            {
+                ///cargo los datos modificados
+                strcpy(mod._nombre,reg._nombre);
+                strcpy(mod._continente,reg._continente);
+                mod._poblacion = reg._poblacion;
+                mod._capital = reg._capital;
+                ///posiciono al puntero
+                fseek(archivo,ftell(archivo)-sizeof(Pais),0);
+                ///sobreescribo en el archivo
+                grabo = fwrite(&mod,sizeof(Pais),1,archivo);
+                if (grabo == 1)
+                {
+                    cout << "Modificacion exitosa" << endl;
+                    fclose(archivo);
+                }
+                else
+                {
+                    cout << "Error: Modificacion no lograda" << endl;
+                    fclose(archivo);
+                }
+            }
+        }
+    }
 
+}
 
 
 // 8) --------------------------------------------------------------
-///void modificarCiudad()             // Pido el codigo de la ciudad a modificar.
-//bool existeRegistro(int id)        // Verifico si existe Registro. (SOBRECARGA DE FUNCIONES)
-// Ingreso codigo pais y verifico si existe
-///void grabarModificado(Ciudad reg)  // Guardar Ciudad Modificada. (SOBRECARGA DE FUNCIONES)
+void modificarCiudad()    // Pido el codigo de la ciudad a modificar.
+{
+    Ciudad retorno;
+    int codigo;
+    bool salir=false;
+    while (salir==false)
+    {
+        cout << "Ingrese el codigo a modificar" << endl;
+        cin >> codigo;
+        if (existeRegistroCiudad(codigo)==true)
+        {
+            retorno = obtenerRegistroCiudad(codigo);
+            cin.ignore();
+            cout << "Ingrese el ID de pais para modificarlo" << endl;
+            cin.getline(retorno._idpais,4);
+            grabarCiudadModificado(retorno);
+        }
+        else
+        {
+            cout << "ERROR: Codigo Inexistente" << endl;
+        }
+        salir = SalirDeFuncion();
+        clrscr();
+
+    }
+}
+
+
+bool existeRegistroCiudad(int id)  // Verifico si existe Registro de ciudad y a la vez si el IDPAIS que esta adjunto existe. (SOBRECARGA DE FUNCIONES) // Ingreso codigo pais y verifico si existe
+{
+    bool retorno=false;
+    FILE* archivo;
+    Ciudad existe;
+    archivo = fopen(ARCHIVO_CIUDADES,"rb");
+    if (archivo==NULL)
+    {
+        cout << "ERROR DE APERTURA" << endl;
+    }
+    else
+    {
+        while(fread(&existe,sizeof(Ciudad),1,archivo)==1)
+        {
+            if ((id==existe._ID) && (existeRegistroPais(existe._idpais)==true))
+            {
+                retorno=true;
+            }
+        }
+    }
+    fclose(archivo);
+    return retorno;
+}
+
+void grabarCiudadModificado(Ciudad reg)  // Guardar Ciudad Modificada. (SOBRECARGA DE FUNCIONES)
+{
+    FILE* archivo;
+    Ciudad mod;
+    int grabo = 0;
+    archivo = fopen (ARCHIVO_CIUDADES,"rb+");
+    if (archivo == NULL)
+    {
+        cout << "Error: Archivo inexistente" << endl;
+    }
+    else
+    {
+        while(fread(&mod,sizeof(Ciudad),1,archivo)==1)
+        {
+            if (mod._ID==reg._ID)
+            {
+                ///cargo los datos modificados
+                strcpy(mod._idpais,reg._idpais);
+                ///posiciono al puntero
+                fseek(archivo,ftell(archivo)-sizeof(Ciudad),0);
+                ///sobreescribo en el archivo
+                grabo = fwrite(&mod,sizeof(Ciudad),1,archivo);
+                if (grabo == 1)
+                {
+                    cout << "Modificacion exitosa" << endl;
+                    fclose(archivo);
+                }
+                else
+                {
+                    cout << "Error: Modificacion no lograda" << endl;
+                    fclose(archivo);
+                }
+            }
+        }
+    }
+
+}
 
 
 
@@ -528,4 +721,25 @@ bool SalirDeFuncion()
     }
 }
 
+void menuModificacionPais()
+{
+    cout << "1-Modificar nombre del pais" << endl;
+    cout << "2-Modificar continente del pais" << endl;
+    cout << "3-Modificar poblacion del pais" << endl;
+    cout << "4-Modificar Expectativa de vida del pais" << endl;
+}
+
+struct Ciudad obtenerRegistroCiudad(int ciudad)
+{
+    Ciudad buscar;
+    FILE* archivo;
+    archivo = fopen(ARCHIVO_CIUDADES,"rb");
+    while(fread(&buscar,sizeof(Ciudad),1,archivo)==1)
+    {
+        if(buscar._ID==ciudad)
+        {
+            return buscar;
+        }
+    }
+}
 #endif // FUNCIONES_H_INCLUDED

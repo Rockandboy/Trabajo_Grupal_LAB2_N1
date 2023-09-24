@@ -116,7 +116,7 @@ void menuPaises(){
             break;
         case 4:
             clrscr();
-            //modificarPais();
+            modificarPais();
             break;
         case 0:
             cout << endl << endl;
@@ -170,7 +170,7 @@ void menuCiudades(){
             break;
         case 2:
             clrscr();
-            //modificarCiudad();
+            modificarCiudad();
             break;
         case 0:
             cout << endl << endl;
