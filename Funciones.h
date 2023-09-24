@@ -68,10 +68,15 @@ long long contarPoblacionMundial();
 
 /// PUNTOS 11 y 12 (OPCIONALES)
 /// COLOCAR AQUÍ LOS PROTOTIPOS DE LAS FUNCIONES
+// 11) --------------------------------------------------------------
+void backupArchivo();
+void restaurarArchivo();
 
+// 12) --------------------------------------------------------------
 int exportarAexcel();
 void crearExcel(); //void cargarHoja1(Sheet *hoja);
 void cargarHoja2(Sheet *hoja, Book *libro);
+// EXTRAS) --------------------------------------------------------------
 bool SalirDeFuncion();
 void menuModificacionPais();
 struct Ciudad obtenerRegistroCiudad(int ciudad);
@@ -748,6 +753,165 @@ struct Ciudad obtenerRegistroCiudad(int ciudad)
     }
 }
 
+// 11) --------------------------------------------------------------
+void backupArchivo()
+{
+    /// uso vectores para trasladar todos los datos de los ".dat" a los ".bkp"
+    const int tamPais=contarPaises(),tamCiudad=contarCiudades();
+    int graboCiudad,graboPais;
+    Pais bkpPais[tamPais];
+    Ciudad bkpCiudad[tamCiudad];
+
+    ///punteros a_ = archivos ".dat", bkp_= archivos .bkp
+    FILE *a_pais,*a_ciudad,*bkp_pais,*bkp_ciudad;
+
+    /// ------- CREACION DEL BACKUP PAISES -------
+
+    ///abro el archivo ".dat"
+    a_pais = fopen(ARCHIVO_PAISES,"rb");
+    ///verifico si abrio bien
+    if (a_pais == NULL)
+    {
+        cout << "Error: Archivo ""Paises.dat"" inexistente" << endl;
+    }
+    else
+    {
+        ///abro el archivo .bkp de ciudad
+        bkp_pais = fopen(BACKUP_PAISES,"ab");
+        if (bkp_pais == NULL)
+        {
+            cout << "Error: Archivo ""Paises.bkp"" inexistente" << endl;
+        }
+        else
+        {
+            ///leo el .dat
+            fread(bkpPais,sizeof(Pais),tamPais,a_pais);
+            ///cargo en el backup
+            graboPais = fwrite(bkpPais,sizeof(Pais),tamPais,bkp_pais);
+        }
+    }
+    if (graboPais==tamPais)
+    {
+        cout << """Paises.bkp"" Ha sido creado exitosamente\n" << endl;
+    }
+
+    /// ------- CREACION DEL BACKUP CIUDADES -------
+
+        ///abro el archivo ".dat"
+    a_ciudad = fopen(ARCHIVO_CIUDADES,"rb");
+    ///verifico si abrio bien
+    if (a_ciudad == NULL)
+    {
+        cout << "Error: Archivo ""Ciudades.dat"" inexistente" << endl;
+    }
+    else
+    {
+        ///abro el archivo .bkp de ciudad
+        bkp_ciudad = fopen(BACKUP_CIUDADES,"ab");
+        if (bkp_ciudad == NULL)
+        {
+            cout << "Error: Archivo ""ciudades.bkp"" inexistente" << endl;
+        }
+        else
+        {
+            ///leo el .dat
+            fread(bkpCiudad,sizeof(Ciudad),tamCiudad,a_ciudad);
+            ///cargo en el backup
+            graboCiudad = fwrite(bkpCiudad,sizeof(Ciudad),tamCiudad,bkp_ciudad);
+        }
+    }
+
+
+    if (graboCiudad==tamCiudad)
+    {
+        cout << """ciudades.bkp"" Ha sido creado exitosamente\n" << endl;
+    }
+        system("pause");
+}
+
+
+// 11) --------------------------------------------------------------
+
+void restaurarArchivo()
+{
+    /// uso vectores para trasladar todos los datos de los ".dat" a los ".bkp"
+    const int tamPais=contarPaises(),tamCiudad=contarCiudades();
+    int graboCiudad,graboPais;
+    Pais restaurarPaises[tamPais];
+    Ciudad restaurarCiudades[tamCiudad];
+
+    ///punteros a_ = archivos ".dat", bkp_= archivos .bkp
+    FILE *a_pais,*a_ciudad,*bkp_pais,*bkp_ciudad;
+
+/// ------- RESTAURACION ARCHIVO PAISES -------
+
+    ///abro el archivo "pais.dat"
+    bkp_pais = fopen(BACKUP_PAISES,"rb");
+    ///verifico si abrio bien
+    if (bkp_pais == NULL)
+    {
+        cout << "Error: Archivo ""paises.bkp"" inexistente" << endl;
+    }
+    else
+    {
+        ///abro el archivo .bkp de ciudad
+        a_pais = fopen(ARCHIVO_PAISES,"ab");
+        if (a_pais == NULL)
+        {
+            cout << "Error: Archivo ""paises.dat"" inexistente" << endl;
+        }
+        else
+        {
+            ///leo el .dat
+            fread(restaurarPaises,sizeof(Pais),tamPais,bkp_pais);
+            ///posiciono al puntero a_pais
+            fseek(a_pais,0,0);
+            ///cargo en el backup
+            graboPais = fwrite(restaurarPaises,sizeof(Pais),tamPais,a_pais);
+        }
+    }
+    if (graboPais==tamPais)
+    {
+        cout << """paises.dat"" Se ha restaurado exitosamente\n" << endl;
+    }
+/// ------- RESTAURACION ARCHIVO CIUDADES -------
+
+        ///abro el archivo ".dat"
+    bkp_ciudad = fopen(BACKUP_CIUDADES,"rb");
+    ///verifico si abrio bien
+    if (bkp_ciudad == NULL)
+    {
+        cout << "Error: Archivo ""ciudades.bkp"" inexistente" << endl;
+    }
+    else
+    {
+        ///abro el archivo .bkp de ciudad
+        a_ciudad = fopen(ARCHIVO_CIUDADES,"ab");
+        if (a_ciudad == NULL)
+        {
+            cout << "Error: Archivo ""ciudades.dat"" inexistente" << endl;
+        }
+        else
+        {
+            ///leo el .dat
+            fread(restaurarCiudades,sizeof(Ciudad),tamCiudad,bkp_ciudad);
+            ///posiciono al puntero a_ciudad
+            fseek(a_ciudad,0,0);
+            ///cargo en el backup
+            graboCiudad = fwrite(restaurarCiudades,sizeof(Ciudad),tamCiudad,a_ciudad);
+        }
+    }
+
+
+    if (graboCiudad==tamCiudad)
+    {
+        cout << """ciudades.dat"" Se Ha Restaurado exitosamente\n" << endl;
+    }
+        system("pause");
+}
+
+
+// 12) --------------------------------------------------------------
 int exportarAexcel()
 {
     //setlocale(LC_ALL, ""); // mostrar caracteres en español

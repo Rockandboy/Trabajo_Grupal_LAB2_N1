@@ -106,7 +106,7 @@
 1695343731 source:d:\documentos\github\trabajo_grupal_lab2_n1\main.cpp
 	"Menu.h"
 
-1695587667 d:\documentos\github\trabajo_grupal_lab2_n1\menu.h
+1695599886 d:\documentos\github\trabajo_grupal_lab2_n1\menu.h
 	<windows.h>
 	<iostream>
 	"graficos.h"
@@ -115,14 +115,14 @@
 1695343731 d:\documentos\github\trabajo_grupal_lab2_n1\graficos.h
 	<iostream>
 
-1695590223 d:\documentos\github\trabajo_grupal_lab2_n1\funciones.h
+1695599916 d:\documentos\github\trabajo_grupal_lab2_n1\funciones.h
 	"Structs.h"
 	"string.h"
 	<cstdio>
 	<iostream>
-	<locale.h>
+	"libxl.h"
 
-1695586505 d:\documentos\github\trabajo_grupal_lab2_n1\structs.h
+1695594960 d:\documentos\github\trabajo_grupal_lab2_n1\structs.h
 
 1695351687 source:c:\users\fabu\desktop\github_repo\trabajo_grupal_lab2_n1\main.cpp
 	"Menu.h"
@@ -197,6 +197,61 @@
 	"enum.h"
 
 1688134774 c:\users\fabu\desktop\github_repo\trabajo_grupal_lab2_n1\libxl-4.2.0\include_cpp\iconditionalformattingt.h
+	"setup.h"
+	"enum.h"
+
+1695594627 d:\documentos\github\trabajo_grupal_lab2_n1\libxl-4.2.0\include_cpp\libxl.h
+	"IBookT.h"
+	"ISheetT.h"
+	"IFormatT.h"
+	"IFontT.h"
+	"IAutoFilterT.h"
+	"IFilterColumnT.h"
+	"IRichStringT.h"
+	"IFormControlT.h"
+	"IConditionalFormatT.h"
+	"IConditionalFormattingT.h"
+
+1695594627 d:\documentos\github\trabajo_grupal_lab2_n1\libxl-4.2.0\include_cpp\ibookt.h
+	<stddef.h>
+	"setup.h"
+	"enum.h"
+
+1695594627 d:\documentos\github\trabajo_grupal_lab2_n1\libxl-4.2.0\include_cpp\setup.h
+
+1695594627 d:\documentos\github\trabajo_grupal_lab2_n1\libxl-4.2.0\include_cpp\enum.h
+
+1695594627 d:\documentos\github\trabajo_grupal_lab2_n1\libxl-4.2.0\include_cpp\isheett.h
+	"setup.h"
+	"enum.h"
+
+1695594627 d:\documentos\github\trabajo_grupal_lab2_n1\libxl-4.2.0\include_cpp\iformatt.h
+	"setup.h"
+	"enum.h"
+
+1695594627 d:\documentos\github\trabajo_grupal_lab2_n1\libxl-4.2.0\include_cpp\ifontt.h
+	"setup.h"
+	"enum.h"
+
+1695594627 d:\documentos\github\trabajo_grupal_lab2_n1\libxl-4.2.0\include_cpp\iautofiltert.h
+	"setup.h"
+
+1695594627 d:\documentos\github\trabajo_grupal_lab2_n1\libxl-4.2.0\include_cpp\ifiltercolumnt.h
+	"setup.h"
+	"enum.h"
+
+1695594627 d:\documentos\github\trabajo_grupal_lab2_n1\libxl-4.2.0\include_cpp\irichstringt.h
+	"setup.h"
+
+1695594627 d:\documentos\github\trabajo_grupal_lab2_n1\libxl-4.2.0\include_cpp\iformcontrolt.h
+	"setup.h"
+	"enum.h"
+
+1695594627 d:\documentos\github\trabajo_grupal_lab2_n1\libxl-4.2.0\include_cpp\iconditionalformatt.h
+	"setup.h"
+	"enum.h"
+
+1695594627 d:\documentos\github\trabajo_grupal_lab2_n1\libxl-4.2.0\include_cpp\iconditionalformattingt.h
 	"setup.h"
 	"enum.h"
 

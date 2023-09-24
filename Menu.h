@@ -302,11 +302,11 @@ void menuConfig()
         {
         case 1:
             clrscr();
-            //backupArchivo();
+            backupArchivo();
             break;
         case 2:
             clrscr();
-            //restaurarArchivo();
+            restaurarArchivo();
             break;
         case 3:
             clrscr();
